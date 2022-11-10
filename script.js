@@ -42,7 +42,7 @@ displayValue = ""
 buttons.forEach((button) => {
     button.addEventListener('click', (e) => {
         a += button.textContent
-        console.log(displayValue)
+        console.log(a)
     })
 })
 
