@@ -14,6 +14,22 @@ const zero = document.querySelector('#zero')
 
 //basic functions
 
-const add = function(array) {
+const add = function(aAdd, bAdd) {
+    return aAdd + bAdd
 }
 
+const subtract = function(a, b) {
+    return a - b
+}
+
+const multiply = function(a, b) {
+    return a * b
+}
+
+const divide = function(a, b) {
+    return a / b
+}
+
+console.log(subtract(10,02))
+console.log(multiply(100.120,4))
+console.log(divide(10.12,2))
