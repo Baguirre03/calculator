@@ -1,50 +1,90 @@
 //Wish me luck LOL
-//basic functions
 
-const add = function(aAdd, bAdd) {
+//outputs
+const output = document.querySelector('.output')
+const buttons = document.querySelectorAll('button')
+const functions = document.querySelectorAll('.subtract, .add, .divide, .multiply')
+const clear = document.querySelector('.clear')
+const back = document.querySelector('.back')
+const equals = document.querySelector('#equals')
+const period = document.querySelector('#period')
+
+//basic functions 
+const addition = function(aAdd, bAdd) {
     return aAdd + bAdd
 }
 
-const subtract = function(a, b) {
+const subtraction = function(a, b) {
     return a - b
 }
 
-const multiply = function(a, b) {
+const multiplies = function(a, b) {
     return a * b
 }
 
-const divide = function(a, b) {
+const divides = function(a, b) {
     return a / b
 }
 
 const operate = function(operator, a, b) {
     if (operator === "add") {
-        return add(a,b)
+        return addition(a,b)
     } else if (operator === "subtract") {
-        return subtract(a,b)
+        return subtraction(a,b)
     } else if (operator === "multiply") {
-        return multiply(a,b)
+        return multiplies(a,b)
     } else if (operator === "divide") {
-        return divide(a,b)
+        return divides(a,b)
     } else {
         return "error" 
     }
 }
 
-//Outouts
-const output = document.querySelector('.output')
-const buttons = document.querySelectorAll('button')
-const functions = document.querySelectorAll('.subtract, .add, .divide, .multiply')
+let valueOne = ""
+let valueTwo = ""
+let operatorCalc = ""
+let a = ""
 
-displayValue = ""
+function firstValue(variable) {
+    valueOne += variable
+    output.textContent = valueOne
+}
 
+function secondValue(variable) {
+    valueTwo += variable
+    output.textContent = valueTwo
+}
+
+function operatorGet(variableOp) {
+    operatorCalc = variableOp
+    output.textContent = variableOp
+}
 
 buttons.forEach((button) => {
-    button.addEventListener('click', (e) => {
-        a += button.textContent
-        console.log(a)
+    button.addEventListener('click', () => {
+        if (!isNaN(valueOne)) {
+            secondValue(button.textContent)
+        } else if(!isNaN(button.textContent)) {
+            firstValue(button.textContent)
+        } else if (isNaN(button)
+                    && button.textContent != "clear"
+                    && button.textContent != "back"
+                    && button.textContent != "="
+                    && button.textContent != ".") {
+            operatorGet(button.id)
+            return
+        }
+        console.log(valueOne)
+        console.log(valueTwo)
     })
 })
+
+//run equals sign -> Need to change
+equals.addEventListener('click', () => {
+    console.log(operate(operatorCalc, valueOne, valueTwo))
+})
+
+
 
 
 
