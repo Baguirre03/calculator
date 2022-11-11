@@ -1,11 +1,10 @@
 //Wish me luck LOL
 
 //outputs
-const output = document.querySelector('.output')
+const output = document.querySelector('#outputs')
 const buttons = document.querySelectorAll('button')
-const functions = document.querySelectorAll('.subtract, .add, .divide, .multiply')
-const clear = document.querySelector('.clear')
-const back = document.querySelector('.back')
+const clear = document.querySelector('#clear')
+const back = document.querySelector('#back')
 const equals = document.querySelector('#equals')
 const period = document.querySelector('#period')
 
@@ -64,20 +63,29 @@ function stringHasNumber(string) {
     return /[0-9]/.test(string)
 }
 
+function clearALL() {
+    valueOne = ""
+    valueTwo = ""
+    operatorCalc = ""
+}
+
 function getFirstValue() {
     buttons.forEach((button) => {
         button.addEventListener('click', () => {
-            if (stringHasNumber(valueTwo)) {
+            if (operatorCalc === "add" || 
+                operatorCalc === "subtract" || 
+                operatorCalc === "multiply" || 
+                operatorCalc === "divide") {
                 getSecondValue();
             }
              else if(!isNaN(button.textContent)) {
                     setFirstValue(button.textContent)
             }
             else if (isNaN(button)
-                && button.textContent != "clear"
-                && button.textContent != "back"
+                && button.textContent != "AC"
+                && button.textContent != "C"
                 && button.textContent != "="
-                && button.textContent != ".") {
+                && button.textContent != "+/-") {
                     getOperator(button)
                     getSecondValue();
             }
@@ -100,6 +108,11 @@ function getSecondValue() {
         })
     })  
 }
+
+clear.addEventListener('click', () => {
+    getFirstValue(0);
+    getSecondValue(0);
+})
 
 //Run code
 getFirstValue();
