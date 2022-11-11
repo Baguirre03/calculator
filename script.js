@@ -10,8 +10,8 @@ const equals = document.querySelector('#equals')
 const period = document.querySelector('#period')
 
 //basic functions 
-const addition = function(aAdd, bAdd) {
-    return aAdd + bAdd
+const addition = function(a, b) {
+    return a + b
 }
 
 const subtraction = function(a, b) {
@@ -28,13 +28,13 @@ const divides = function(a, b) {
 
 const operate = function(operator, a, b) {
     if (operator === "add") {
-        return addition(a,b)
+        return addition(a, b)
     } else if (operator === "subtract") {
-        return subtraction(a,b)
+        return subtraction(a, b)
     } else if (operator === "multiply") {
-        return multiplies(a,b)
+        return multiplies(a, b)
     } else if (operator === "divide") {
-        return divides(a,b)
+        return divides(a, b)
     } else {
         return "error" 
     }
@@ -45,39 +45,60 @@ let valueTwo = ""
 let operatorCalc = ""
 let a = ""
 
-function firstValue(variable) {
+function setFirstValue(variable) {
     valueOne += variable
     output.textContent = valueOne
 }
 
-function secondValue(variable) {
+function setSecondValue(variable) {
     valueTwo += variable
     output.textContent = valueTwo
 }
 
-function operatorGet(variableOp) {
-    operatorCalc = variableOp
-    output.textContent = variableOp
+function getOperator(variableOp) {
+    operatorCalc = variableOp.id
+    output.textContent = variableOp.textContent
 }
 
-buttons.forEach((button) => {
-    button.addEventListener('click', () => {
-        if (!isNaN(valueOne)) {
-            secondValue(button.textContent)
-        } else if(!isNaN(button.textContent)) {
-            firstValue(button.textContent)
-        } else if (isNaN(button)
-                    && button.textContent != "clear"
-                    && button.textContent != "back"
-                    && button.textContent != "="
-                    && button.textContent != ".") {
-            operatorGet(button.id)
-            return
-        }
-        console.log(valueOne)
-        console.log(valueTwo)
+function stringHasNumber(string) {
+    return /[0-9]/.test(string)
+}
+
+function getFirstValue() {
+    buttons.forEach((button) => {
+        button.addEventListener('click', () => {
+            if(!isNaN(button.textContent)) {
+                    setFirstValue(button.textContent)
+            } else if (isNaN(button)
+                && button.textContent != "clear"
+                && button.textContent != "back"
+                && button.textContent != "="
+                && button.textContent != ".") {
+                    getOperator(button)
+                    getSecondValue()
+            }
+        })
     })
-})
+}
+
+function getSecondValue() {
+    buttons.forEach((button) => {
+        button.addEventListener('click', () => {
+            if(!isNaN(button.textContent)) {
+                setSecondValue(button.textContent)
+            } else if (button.id === "equals") {
+                console.log(valueOne);
+                console.log(operatorCalc);
+                console.log(valueTwo);
+                operate(operatorCalc, valueOne, valueTwo);
+                output.textContent = operate(operatorCalc, valueOne, valueTwo)
+            }
+        })
+    })  
+}
+
+//Run code
+getFirstValue();
 
 //run equals sign -> Need to change
 equals.addEventListener('click', () => {
