@@ -11,7 +11,7 @@ const period = document.querySelector('#period')
 
 //basic functions 
 const addition = function(a, b) {
-    return a + b
+    return parseInt(a) + parseInt(b)
 }
 
 const subtraction = function(a, b) {
@@ -67,15 +67,19 @@ function stringHasNumber(string) {
 function getFirstValue() {
     buttons.forEach((button) => {
         button.addEventListener('click', () => {
-            if(!isNaN(button.textContent)) {
+            if (stringHasNumber(valueTwo)) {
+                getSecondValue();
+            }
+             else if(!isNaN(button.textContent)) {
                     setFirstValue(button.textContent)
-            } else if (isNaN(button)
+            }
+            else if (isNaN(button)
                 && button.textContent != "clear"
                 && button.textContent != "back"
                 && button.textContent != "="
                 && button.textContent != ".") {
                     getOperator(button)
-                    getSecondValue()
+                    getSecondValue();
             }
         })
     })
@@ -87,9 +91,9 @@ function getSecondValue() {
             if(!isNaN(button.textContent)) {
                 setSecondValue(button.textContent)
             } else if (button.id === "equals") {
-                console.log(valueOne);
-                console.log(operatorCalc);
-                console.log(valueTwo);
+                    console.log(valueOne);
+                    console.log(operatorCalc);
+                    console.log(valueTwo);
                 operate(operatorCalc, valueOne, valueTwo);
                 output.textContent = operate(operatorCalc, valueOne, valueTwo)
             }
