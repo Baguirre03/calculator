@@ -117,7 +117,7 @@ clear.addEventListener('click', () => {
 //Run code
 getFirstValue();
 
-//run equals sign -> Need to change
+//run equals sign
 equals.addEventListener('click', () => {
     console.log(operate(operatorCalc, valueOne, valueTwo))
 })
