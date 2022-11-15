@@ -7,6 +7,7 @@ const clear = document.querySelector('#clear')
 const back = document.querySelector('#back')
 const equals = document.querySelector('#equals')
 const period = document.querySelector('#period')
+const number = document.querySelectorAll('.number')
 
 //basic functions 
 const addition = function(a, b) {
@@ -40,9 +41,9 @@ const operate = function(operator, a, b) {
 }
 
 let valueOne = ""
-let valueTwo = ""
+let valueTwo = ''
 let operatorCalc = ""
-let a = ""
+var valueHolder
 
 function setFirstValue(variable) {
     valueOne += variable
@@ -63,7 +64,7 @@ function stringHasNumber(string) {
     return /[0-9]/.test(string)
 }
 
-function clearALL() {
+function clearValues() {
     valueOne = ""
     valueTwo = ""
     operatorCalc = ""
@@ -85,7 +86,8 @@ function getFirstValue() {
                 && button.textContent != "AC"
                 && button.textContent != "C"
                 && button.textContent != "="
-                && button.textContent != "+/-") {
+                && button.textContent != "+/-"
+                && button.textContent != ".") {
                     getOperator(button)
                     getSecondValue();
             }
@@ -98,29 +100,51 @@ function getSecondValue() {
         button.addEventListener('click', () => {
             if(!isNaN(button.textContent)) {
                 setSecondValue(button.textContent)
-            } else if (button.id === "equals") {
+            } else if (isNaN(button)
+                    && button.textContent != "AC"
+                    && button.textContent != "C"
+                    && button.textContent != "="
+                    && button.textContent != "+/-"
+                    && button.textContent != ".") {
+                getOperator(button);
+             } else if (button.id === "equals") {
                     console.log(valueOne);
                     console.log(operatorCalc);
                     console.log(valueTwo);
-                operate(operatorCalc, valueOne, valueTwo);
-                output.textContent = operate(operatorCalc, valueOne, valueTwo)
-            }
+                    console.log(valueHolder)
+                    finishedAnswer();
+                    //createValueOne();
+            } 
         })
     })  
 }
+function finishedAnswer() {
+    valueHolder = operate(operatorCalc, valueOne, valueTwo);
+    output.textContent = valueHolder
+}
+
+function createValueOne() {
+    valueOne = valueHolder
+}
+
+function clearAll() {
+    output.textContent = "0"
+    operatorCalc = 0
+    valueOne = 0
+    valueTwo = 0
+}
 
 clear.addEventListener('click', () => {
-    getFirstValue(0);
-    getSecondValue(0);
+    clearAll();
 })
 
 //Run code
 getFirstValue();
 
 //run equals sign
-equals.addEventListener('click', () => {
-    console.log(operate(operatorCalc, valueOne, valueTwo))
-})
+
+
+
 
 
 
