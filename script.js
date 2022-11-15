@@ -9,7 +9,7 @@ const equals = document.querySelector('#equals')
 const period = document.querySelector('#period')
 const number = document.querySelectorAll('.number')
 const functions = document.querySelectorAll('.function')
-const placeholder = document.getElementById('placeholder')
+const placeholder = document.querySelector('#placeholder')
 
 //basic functions 
 const addition = function(a, b) {
@@ -46,6 +46,7 @@ let valueOne = ""
 let valueTwo = ''
 let operatorCalc = ""
 var valueHolder
+let topSection = ""
 
 function setFirstValue(variable) {
     valueOne += variable
@@ -57,12 +58,10 @@ function setSecondValue(variable) {
     output.textContent = valueTwo
 }
 
-function setOperator(variableOp) {
-    operatorCalc = variableOp.id
-    output.textContent = variableOp.textContent
+function setOperator(variable) {
+    operatorCalc = variable.id
+    output.textContent = variable.textContent
 }
-
-functions
 
 function clearAll() {
     output.textContent = "0"
@@ -71,15 +70,19 @@ function clearAll() {
     valueTwo = ""
 }
 
+topHolder = ""
+function updateTop(variable) {
+    placeholder.textContent = variable
+}
+
 function getFirstValue() {
     number.forEach((button) => {
         button.addEventListener('click', () => {
             if (operatorCalc === "add" || 
             operatorCalc === "subtract" || 
             operatorCalc === "multiply" || 
-            operatorCalc === "divide") {              
+            operatorCalc === "divide") { 
                 setSecondValue(button.textContent);
-                return;
             } else if (!isNaN(button.textContent)){
                 console.log(valueOne)
                 console.log(operatorCalc)
@@ -94,25 +97,16 @@ function getFirstValue() {
 functions.forEach((button) => {
     button.addEventListener('click', () => {
         setOperator(button)
+        updateTop(`${valueOne} ${button.textContent}`);
         return;
     })
 })
-
-function getSecondValue() {
-    placeholder.textContent = valueOne.textContent
-    number.forEach((button) => {
-        button.addEventListener('click', () => {
-            setSecondValue(button.textContent);
-            return;
-        })
-    })
-}
 
 equals.addEventListener('click', () => {
     valueHolder = operate(operatorCalc, valueOne, valueTwo)
     output.textContent = (operate(operatorCalc, valueOne, valueTwo))
     valueOne = valueHolder
-    console.log(valueOne)
+    updateTop(`${valueOne}`)
     getFirstValue();
     operatorCalc = ""
     valueTwo = ""
