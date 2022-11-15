@@ -2,13 +2,18 @@
 
 //outputs
 const output = document.querySelector('#outputs')
-const buttons = document.querySelectorAll('button')
+
 const clear = document.querySelector('#clear')
 const back = document.querySelector('#back')
+
 const equals = document.querySelector('#equals')
+
 const period = document.querySelector('#period')
+const plusMinus = document.querySelector('#plusMinus')
+
 const number = document.querySelectorAll('.number')
 const functions = document.querySelectorAll('.function')
+
 const placeholder = document.querySelector('#placeholder')
 
 //basic functions 
@@ -71,6 +76,10 @@ function clearAll() {
     placeholder.textContent = "0"
 }
 
+function stringHasNumber(string) {
+    return /[0-9]/.test(string)
+}
+
 topHolder = ""
 function updateTop(variable) {
     placeholder.textContent = variable
@@ -112,9 +121,26 @@ equals.addEventListener('click', () => {
     valueTwo = ""
 })
 
+function checkNewNum() {
+    buttons.forEach((button) => {
+        button.addEventListener('click', () => {
+            if(!isNaN(button.textContent)) {
+                valueOne = button.textContent
+            } else if (button.textContent === "÷" ||
+                        button.textContent === "x" ||
+                        button.textContent === "-" ||
+                        button.textContent === "+") {
+            valueOne = ""
+            getFirstValue();
+            }
+        })
+    })
+}
+
 clear.addEventListener('click', () => {
     clearAll();
 })
+
 
 //Run code
 getFirstValue();
