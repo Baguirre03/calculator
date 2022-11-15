@@ -8,6 +8,7 @@ const back = document.querySelector('#back')
 const equals = document.querySelector('#equals')
 const period = document.querySelector('#period')
 const number = document.querySelectorAll('.number')
+const functions = document.querySelectorAll('.function')
 
 //basic functions 
 const addition = function(a, b) {
@@ -55,7 +56,7 @@ function setSecondValue(variable) {
     output.textContent = valueTwo
 }
 
-function getOperator(variableOp) {
+function setOperator(variableOp) {
     operatorCalc = variableOp.id
     output.textContent = variableOp.textContent
 }
@@ -64,68 +65,11 @@ function stringHasNumber(string) {
     return /[0-9]/.test(string)
 }
 
-function clearValues() {
-    valueOne = ""
-    valueTwo = ""
-    operatorCalc = ""
-}
-
-function getFirstValue() {
-    buttons.forEach((button) => {
-        button.addEventListener('click', () => {
-            if (operatorCalc === "add" || 
-                operatorCalc === "subtract" || 
-                operatorCalc === "multiply" || 
-                operatorCalc === "divide") {
-                getSecondValue();
-            }
-             else if(!isNaN(button.textContent)) {
-                    setFirstValue(button.textContent)
-            }
-            else if (isNaN(button)
-                && button.textContent != "AC"
-                && button.textContent != "C"
-                && button.textContent != "="
-                && button.textContent != "+/-"
-                && button.textContent != ".") {
-                    getOperator(button)
-                    getSecondValue();
-            }
-        })
-    })
-}
-
-function getSecondValue() {
-    buttons.forEach((button) => {
-        button.addEventListener('click', () => {
-            if(!isNaN(button.textContent)) {
-                setSecondValue(button.textContent)
-            } else if (isNaN(button)
-                    && button.textContent != "AC"
-                    && button.textContent != "C"
-                    && button.textContent != "="
-                    && button.textContent != "+/-"
-                    && button.textContent != ".") {
-                getOperator(button);
-             } else if (button.id === "equals") {
-                    console.log(valueOne);
-                    console.log(operatorCalc);
-                    console.log(valueTwo);
-                    console.log(valueHolder)
-                    finishedAnswer();
-                    //createValueOne();
-            } 
-        })
-    })  
-}
 function finishedAnswer() {
     valueHolder = operate(operatorCalc, valueOne, valueTwo);
     output.textContent = valueHolder
 }
 
-function createValueOne() {
-    valueOne = valueHolder
-}
 
 function clearAll() {
     output.textContent = "0"
@@ -134,13 +78,50 @@ function clearAll() {
     valueTwo = 0
 }
 
+function getFirstValue() {
+    number.forEach((button) => {
+        button.addEventListener('click', () => {
+            if (operatorCalc === "add" || 
+            operatorCalc === "subtract" || 
+            operatorCalc === "multiply" || 
+            operatorCalc === "divide") {
+                getSecondValue();
+            } else if (!isNaN(button.textContent)){
+                setFirstValue(button.textContent)
+            }
+        })
+    })
+}
+
+functions.forEach((button) => {
+    button.addEventListener('click', () => {
+        setOperator(button)
+    })
+})
+
+function getSecondValue() {
+    number.forEach((button) => {
+        button.addEventListener('click', () => {
+            setSecondValue(button.textContent);
+        })
+    })
+}
+
+equals.addEventListener('click', () => {
+    console.log(operate(operatorCalc, valueOne, valueTwo))
+    console.log(valueOne)
+    console.log(operatorCalc)
+    console.log(valueTwo)
+})
+
+
+
 clear.addEventListener('click', () => {
     clearAll();
 })
 
 //Run code
 getFirstValue();
-
 //run equals sign
 
 
