@@ -68,6 +68,7 @@ function clearAll() {
     operatorCalc = ""
     valueOne = ""
     valueTwo = ""
+    placeholder.textContent = "0"
 }
 
 topHolder = ""
@@ -106,8 +107,7 @@ equals.addEventListener('click', () => {
     valueHolder = operate(operatorCalc, valueOne, valueTwo)
     output.textContent = (operate(operatorCalc, valueOne, valueTwo))
     valueOne = valueHolder
-    updateTop(`${valueOne}`)
-    getFirstValue();
+    updateTop(`${valueOne}`);
     operatorCalc = ""
     valueTwo = ""
 })
