@@ -9,6 +9,7 @@ const equals = document.querySelector('#equals')
 const period = document.querySelector('#period')
 const number = document.querySelectorAll('.number')
 const functions = document.querySelectorAll('.function')
+const placeholder = document.getElementById('placeholder')
 
 //basic functions 
 const addition = function(a, b) {
@@ -61,21 +62,13 @@ function setOperator(variableOp) {
     output.textContent = variableOp.textContent
 }
 
-function stringHasNumber(string) {
-    return /[0-9]/.test(string)
-}
-
-function finishedAnswer() {
-    valueHolder = operate(operatorCalc, valueOne, valueTwo);
-    output.textContent = valueHolder
-}
-
+functions
 
 function clearAll() {
     output.textContent = "0"
-    operatorCalc = 0
-    valueOne = 0
-    valueTwo = 0
+    operatorCalc = ""
+    valueOne = ""
+    valueTwo = ""
 }
 
 function getFirstValue() {
@@ -84,10 +77,15 @@ function getFirstValue() {
             if (operatorCalc === "add" || 
             operatorCalc === "subtract" || 
             operatorCalc === "multiply" || 
-            operatorCalc === "divide") {
-                getSecondValue();
+            operatorCalc === "divide") {              
+                setSecondValue(button.textContent);
+                return;
             } else if (!isNaN(button.textContent)){
+                console.log(valueOne)
+                console.log(operatorCalc)
+                console.log(valueTwo)
                 setFirstValue(button.textContent)
+                return;
             }
         })
     })
@@ -96,25 +94,29 @@ function getFirstValue() {
 functions.forEach((button) => {
     button.addEventListener('click', () => {
         setOperator(button)
+        return;
     })
 })
 
 function getSecondValue() {
+    placeholder.textContent = valueOne.textContent
     number.forEach((button) => {
         button.addEventListener('click', () => {
             setSecondValue(button.textContent);
+            return;
         })
     })
 }
 
 equals.addEventListener('click', () => {
-    console.log(operate(operatorCalc, valueOne, valueTwo))
+    valueHolder = operate(operatorCalc, valueOne, valueTwo)
+    output.textContent = (operate(operatorCalc, valueOne, valueTwo))
+    valueOne = valueHolder
     console.log(valueOne)
-    console.log(operatorCalc)
-    console.log(valueTwo)
+    getFirstValue();
+    operatorCalc = ""
+    valueTwo = ""
 })
-
-
 
 clear.addEventListener('click', () => {
     clearAll();
@@ -122,7 +124,6 @@ clear.addEventListener('click', () => {
 
 //Run code
 getFirstValue();
-//run equals sign
 
 
 
