@@ -137,6 +137,8 @@ function checkNewNum() {
     })
 }
 
+//Rounding Numbers
+
 clear.addEventListener('click', () => {
     clearAll();
 })
