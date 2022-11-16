@@ -85,7 +85,7 @@ function getFirstValue() {
             operatorCalc === "multiply" || 
             operatorCalc === "divide") { 
                 setSecondValue(button.textContent);
-            } else if (!isNaN(button.textContent) || button.textContent == "."){
+            } else if (!isNaN(button.textContent) || button.textContent === "."){
                 setFirstValue(button.textContent)
             } 
         })
