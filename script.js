@@ -105,7 +105,7 @@ functions.forEach((button) => {
 
 equals.addEventListener('click', () => {
     valueHolder = operate(operatorCalc, valueOne, valueTwo)
-    output.textContent = (operate(operatorCalc, valueOne, valueTwo))
+    output.textContent = valueHolder
     valueOne = valueHolder
     updateTop(`${valueOne}`);
     operatorCalc = ""
@@ -114,7 +114,6 @@ equals.addEventListener('click', () => {
 
 //backspace
 back.addEventListener('click', () => {
-    console.log(operatorCalc)
     if (operatorCalc === "add" || 
     operatorCalc === "subtract" || 
     operatorCalc === "multiply" || 
@@ -122,6 +121,11 @@ back.addEventListener('click', () => {
         let placeholder = valueTwo.slice(0, valueTwo.length - 1);
         valueTwo = placeholder
         output.textContent = valueTwo
+        checkEmptyDiv();
+    } else if (String(valueOne) === placeholder.textContent) {
+        let placeholdertest = String(valueOne).slice(0, String(valueOne).length - 1);
+        valueOne = placeholdertest
+        output.textContent = valueOne
         checkEmptyDiv();
     } else {
         let placeholder = valueOne.slice(0, valueOne.length - 1);
@@ -141,7 +145,7 @@ function checkEmptyDiv() {
     if (output.textContent === "") {
         output.textContent = "0"
     }}
-    
+
 //Run code
 getFirstValue();
 
