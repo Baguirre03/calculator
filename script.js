@@ -46,10 +46,7 @@ let valueOne = ""
 let valueTwo = ''
 let operatorCalc = ""
 
-var valueHolder
-let topSection = ""
-topHolder = ""
-
+//setting value functions 
 function setFirstValue(variable) {
     valueOne += variable
     output.textContent = valueOne
@@ -65,6 +62,7 @@ function setOperator(variable) {
     output.textContent = variable.textContent
 }
 
+
 function clearAll() {
     output.textContent = "0"
     operatorCalc = ""
@@ -73,12 +71,12 @@ function clearAll() {
     placeholder.textContent = "0"
 }
 
+//update placeholder
 function updateTop(variable) {
     placeholder.textContent = variable
 }
 
-
-
+//Code body
 function getFirstValue() {
     number.forEach((button) => {
         button.addEventListener('click', () => {
@@ -94,6 +92,7 @@ function getFirstValue() {
     })
 }
 
+//-+÷x
 functions.forEach((button) => {
     button.addEventListener('click', () => {
         setOperator(button)
@@ -102,20 +101,20 @@ functions.forEach((button) => {
     })
 })
 
+//equals bttn
 equals.addEventListener('click', () => {
-    if (output.textContent === "0" || valueTwo === "") {
+    if (valueTwo === "") {
         return;
     } else {
-    valueHolder = operate(operatorCalc, valueOne, valueTwo)
-    output.textContent = valueHolder
-    valueOne = valueHolder
+    valueOne = operate(operatorCalc, valueOne, valueTwo)
+    output.textContent = valueOne
     updateTop(`${valueOne}`);
     operatorCalc = ""
     valueTwo = ""
     }
 })
 
-//backspace
+//backspace button
 back.addEventListener('click', () => {
     if (operatorCalc === "add" || 
     operatorCalc === "subtract" || 
