@@ -87,10 +87,9 @@ function getFirstValue() {
             operatorCalc === "multiply" || 
             operatorCalc === "divide") { 
                 setSecondValue(button.textContent);
-            } else if (!isNaN(button.textContent)){
+            } else if (!isNaN(button.textContent) || button.textContent == "."){
                 setFirstValue(button.textContent)
-                return;
-            }
+            } 
         })
     })
 }
@@ -104,12 +103,16 @@ functions.forEach((button) => {
 })
 
 equals.addEventListener('click', () => {
+    if (output.textContent === "0" || valueTwo === "") {
+        return;
+    } else {
     valueHolder = operate(operatorCalc, valueOne, valueTwo)
     output.textContent = valueHolder
     valueOne = valueHolder
     updateTop(`${valueOne}`);
     operatorCalc = ""
     valueTwo = ""
+    }
 })
 
 //backspace
@@ -118,19 +121,16 @@ back.addEventListener('click', () => {
     operatorCalc === "subtract" || 
     operatorCalc === "multiply" || 
     operatorCalc === "divide") {
-        let placeholder = valueTwo.slice(0, valueTwo.length - 1);
-        valueTwo = placeholder
+        valueTwo = valueTwo.slice(0, valueTwo.length - 1);
         output.textContent = valueTwo
         checkEmptyDiv();
     } else if (String(valueOne) === placeholder.textContent) {
-        let placeholdertest = String(valueOne).slice(0, String(valueOne).length - 1);
-        valueOne = placeholdertest
+        valueOne = String(valueOne).slice(0, String(valueOne).length - 1);
         output.textContent = valueOne
         placeholder.textContent = valueOne
         checkEmptyDiv();
     } else {
-        let placeholder = valueOne.slice(0, valueOne.length - 1);
-        valueOne = placeholder
+        valueOne = valueOne.slice(0, valueOne.length - 1);
         output.textContent = valueOne
         checkEmptyDiv();
     }
