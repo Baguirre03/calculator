@@ -126,6 +126,7 @@ back.addEventListener('click', () => {
         let placeholdertest = String(valueOne).slice(0, String(valueOne).length - 1);
         valueOne = placeholdertest
         output.textContent = valueOne
+        placeholder.textContent = valueOne
         checkEmptyDiv();
     } else {
         let placeholder = valueOne.slice(0, valueOne.length - 1);
