@@ -45,8 +45,10 @@ const operate = function(operator, a, b) {
 let valueOne = ""
 let valueTwo = ''
 let operatorCalc = ""
+
 var valueHolder
 let topSection = ""
+topHolder = ""
 
 function setFirstValue(variable) {
     valueOne += variable
@@ -71,10 +73,11 @@ function clearAll() {
     placeholder.textContent = "0"
 }
 
-topHolder = ""
 function updateTop(variable) {
     placeholder.textContent = variable
 }
+
+
 
 function getFirstValue() {
     number.forEach((button) => {
@@ -85,9 +88,6 @@ function getFirstValue() {
             operatorCalc === "divide") { 
                 setSecondValue(button.textContent);
             } else if (!isNaN(button.textContent)){
-                console.log(valueOne)
-                console.log(operatorCalc)
-                console.log(valueTwo)
                 setFirstValue(button.textContent)
                 return;
             }
@@ -112,11 +112,23 @@ equals.addEventListener('click', () => {
     valueTwo = ""
 })
 
-//Rounding Numbers
-
 //backspace
 back.addEventListener('click', () => {
-    
+    console.log(operatorCalc)
+    if (operatorCalc === "add" || 
+    operatorCalc === "subtract" || 
+    operatorCalc === "multiply" || 
+    operatorCalc === "divide") {
+        let placeholder = valueTwo.slice(0, valueTwo.length - 1);
+        valueTwo = placeholder
+        output.textContent = valueTwo
+        checkEmptyDiv();
+    } else {
+        let placeholder = valueOne.slice(0, valueOne.length - 1);
+        valueOne = placeholder
+        output.textContent = valueOne
+        checkEmptyDiv();
+    }
 })
 
 //clear button
@@ -124,7 +136,12 @@ clear.addEventListener('click', () => {
     clearAll();
 })
 
-
+//if backspace all the way output shows empty
+function checkEmptyDiv() {
+    if (output.textContent === "") {
+        output.textContent = "0"
+    }}
+    
 //Run code
 getFirstValue();
 
