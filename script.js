@@ -86,14 +86,15 @@ function getFirstValue() {
             operatorCalc === "divide") { 
                 setSecondValue(button.textContent);
                 calculate();
-                console.log("secondValue")
             }  else if (!isNaN(button.textContent) && String(valueOne) === placeholder.textContent && valueOne != 0) {
                 clearAll();
                 placeholder.textContent = ""
                 setFirstValue(button.textContent);
-            }  else if (!isNaN(button.textContent) || button.textContent === "."){
+            } else if (valueOne.includes(".") && button.textContent === "."){
+                console.log("You cant do that lol")
+                return;
+            } else if (!isNaN(button.textContent) || button.textContent === "."){
                 setFirstValue(button.textContent)
-                console.log("usual")
             }
         })
     })
@@ -133,6 +134,7 @@ function calculate(){
         } else {
         valueOne = operate(operatorCalc, valueOne, valueTwo)
         output.textContent = valueOne
+        round(valueOne);
         updateTop(`${valueOne}`);
         operatorCalc = ""
         valueTwo = ""
@@ -171,6 +173,19 @@ function checkEmptyDiv() {
     if (output.textContent === "") {
         output.textContent = "0"
     }}
+
+function round(value) {
+    if (output.textContent = value && !Number.isInteger(value)) {
+        console.log(value)
+        value = value.toFixed(2)
+        console.log(value)
+        output.textContent = value
+        console.log(value)
+    } else {
+        output.textContent = value
+        return;
+    }
+}
 
 //Run code
 getFirstValue();
