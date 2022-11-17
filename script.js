@@ -71,7 +71,7 @@ function clearAll() {
     placeholder.textContent = "0"
 }
 
-//update placeholder
+//update placeholder(top-part)
 function updateTop(variable) {
     placeholder.textContent = variable
 }
@@ -85,13 +85,16 @@ function getFirstValue() {
             operatorCalc === "multiply" || 
             operatorCalc === "divide") { 
                 setSecondValue(button.textContent);
-                console.log(valueOne)
-                console.log(operatorCalc)
-                console.log(valueTwo)
                 calculate();
-            } else if (!isNaN(button.textContent) || button.textContent === "."){
+                console.log("secondValue")
+            }  else if (!isNaN(button.textContent) && String(valueOne) === placeholder.textContent && valueOne != 0) {
+                clearAll();
+                placeholder.textContent = ""
+                setFirstValue(button.textContent);
+            }  else if (!isNaN(button.textContent) || button.textContent === "."){
                 setFirstValue(button.textContent)
-            } 
+                console.log("usual")
+            }
         })
     })
 }
@@ -99,7 +102,7 @@ function getFirstValue() {
 //-+÷x
 functions.forEach((button) => {
     button.addEventListener('click', () => {
-//Running operate if valueOne and Two filled, but dont click equals -> click another function
+//Running operate if valueOne and Two filled, but dont click equals instead another function
         if ((operatorCalc === "add" || 
             operatorCalc === "subtract" || 
             operatorCalc === "multiply" || 
@@ -117,7 +120,6 @@ functions.forEach((button) => {
             } else {
                 setOperator(button)
                 updateTop(`${valueOne} ${button.textContent}`);
-                console.log("else")
                 return;
         }
     })
@@ -147,7 +149,7 @@ back.addEventListener('click', () => {
         valueTwo = valueTwo.slice(0, valueTwo.length - 1);
         output.textContent = valueTwo
         checkEmptyDiv();
-    } else if (String(valueOne) === placeholder.textContent) {
+    } else if (String(valueOne) === placeholder.textContent) { //(restart if click = and enter dif number) 
         valueOne = String(valueOne).slice(0, String(valueOne).length - 1);
         output.textContent = valueOne
         placeholder.textContent = valueOne
