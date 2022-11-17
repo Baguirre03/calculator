@@ -196,28 +196,28 @@ getFirstValue();
 //Positive and Negative switches
 
 positiveNeg.addEventListener('click', () => {
-    if (output.textContent = valueOne) {
-        checkPositiveNegative(valueOne);
-    } else if (output.textContent = valueTwo) {
-        checkPositiveNegative(valueTwo);
-    }
+    checkPositiveNegative();
 })
 
-function checkPositiveNegative(value) {
-    if (Math.sign(value) == 1) {
-        parseInt(value)
-        value = (value * 0) - value
-        output.textContent = value
-        console.log(value)
-        console.log("post to neg")
+function checkPositiveNegative() {
+    if (parseInt(output.textContent) == valueOne && Math.sign(valueOne) === 1) {
+        parseInt(valueOne)
+        valueOne = (valueOne * 0) - valueOne
+        output.textContent = valueOne
+        placeholder.textContent = valueOne
+    } else if (parseInt(output.textContent) == valueOne && Math.sign(valueOne) === -1) {
+        valueOne = Math.abs(valueOne)
+        output.textContent = valueOne
+        placeholder.textContent = valueOne
+    } else if (output.textContent == valueTwo && Math.sign(valueTwo) === 1) {
+        parseInt(valueTwo)
+        valueTwo = (valueTwo * 0) - valueTwo
+        output.textContent = valueTwo
+    } else if (parseInt(output.textContent) == valueTwo && Math.sign(valueTwo) === -1) {
+        valueTwo = Math.abs(valueTwo)
+        output.textContent = valueTwo
     } else {
-        value = Math.abs(value)
-        output.textContent = value
-        console.log(value)
-        console.log("neg to pos")
+        return;
     }
 }
-
-
-
 
