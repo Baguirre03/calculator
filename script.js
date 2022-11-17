@@ -80,11 +80,15 @@ function updateTop(variable) {
 function getFirstValue() {
     number.forEach((button) => {
         button.addEventListener('click', () => {
-            if (operatorCalc === "add" || 
+            if (valueTwo.includes(".") && button.textContent === ".") {
+                console.log("You cant do that lolBLAH")
+                return;
+            } else if (operatorCalc === "add" || 
             operatorCalc === "subtract" || 
             operatorCalc === "multiply" || 
             operatorCalc === "divide") { 
                 setSecondValue(button.textContent);
+                console.log(valueTwo)
                 calculate();
             }  else if (!isNaN(button.textContent) && String(valueOne) === placeholder.textContent && valueOne != 0) {
                 clearAll();
@@ -108,7 +112,6 @@ functions.forEach((button) => {
         } else if (valueOne === "") {
             return;
         }
-//Running operate if valueOne and Two filled, but dont click equals instead click another function        
         else if ((operatorCalc === "add" || 
             operatorCalc === "subtract" || 
             operatorCalc === "multiply" || 
@@ -119,7 +122,6 @@ functions.forEach((button) => {
             button.textContent === "÷") &&
             (valueTwo != "")) {
                 valueOne = operate(operatorCalc, valueOne, valueTwo);
-
                 updateTop(`${valueOne} ${button.textContent}`);
                 setOperator(button)
                 valueTwo = ""
@@ -156,7 +158,7 @@ back.addEventListener('click', () => {
         valueTwo = valueTwo.slice(0, valueTwo.length - 1);
         output.textContent = valueTwo
         checkEmptyDiv();
-    } else if (String(valueOne) === placeholder.textContent) { //(restart if click = and enter dif number) 
+    } else if (String(valueOne) === placeholder.textContent) {
         valueOne = String(valueOne).slice(0, String(valueOne).length - 1);
         output.textContent = valueOne
         placeholder.textContent = valueOne
@@ -179,6 +181,7 @@ function checkEmptyDiv() {
         output.textContent = "0"
     }}
 
+//rounding
 function round(value) {
     if (output.textContent = value && !Number.isInteger(value)) {
         value = value.toFixed(2)
@@ -198,12 +201,16 @@ positiveNeg.addEventListener('click', () => {
 function checkPositiveNegative() {
     if (parseInt(output.textContent) == parseInt(valueOne) && Math.sign(valueOne) === 1) {
         valueOne = (valueOne * 0) - valueOne
-        valueOne = valueOne.toFixed(2)
+        if (valueOne.length < 3){
+            valueOne = valueOne.toFixed(2)
+        }
         output.textContent = valueOne
         placeholder.textContent = valueOne
     } else if (parseInt(output.textContent) == parseInt(valueOne) && Math.sign(valueOne) === -1) {
         valueOne = Math.abs(valueOne)
-        valueOne = valueOne.toFixed(2)
+        if (valueOne.length < 3){
+            valueOne = valueOne.toFixed(2)
+        }
         output.textContent = valueOne
         placeholder.textContent = valueOne
     } else if (parseInt(output.textContent) == parseInt(valueTwo) && Math.sign(valueTwo) === 1) {
@@ -266,9 +273,7 @@ addEventListener('keydown', (e) => {
                                 setOperatorKeys(e.key)
                                 valueTwo = ""
                         } else {
-                            console.log(operatorCalc)
                             setOperatorKeys(e.key)
-                            console.log(operatorCalc)
                             updateTop(`${valueOne} ${e.key}`);
                                 return;
                         }
@@ -281,13 +286,17 @@ addEventListener('keydown', (e) => {
                 e.key === "7" ||
                 e.key === "8" ||
                 e.key === "9" ||
-                e.key === "0")  {
-                        if (operatorCalc === "add" || 
-                            operatorCalc === "subtract" || 
-                            operatorCalc === "multiply" || 
-                            operatorCalc === "divide") { 
-                                setSecondValue(e.key);
-                                calculate();
+                e.key === "0" || 
+                e.key === ".")  {
+                            if (valueTwo.includes(".") && e.key === ".") {
+                                console.log("You cant do that loll")
+                                return;
+                            } else if (operatorCalc === "add" || 
+                                operatorCalc === "subtract" || 
+                                operatorCalc === "multiply" || 
+                                operatorCalc === "divide") { 
+                                    setSecondValue(e.key);
+                                    calculate();
                             }  else if (!isNaN(e.key) && String(valueOne) === placeholder.textContent && valueOne != 0) {
                                 clearAll();
                                 placeholder.textContent = ""
@@ -316,7 +325,7 @@ addEventListener('keydown', (e) => {
 function setOperatorKeys(holder) {
     if (holder === "/") {
         setOperator(divide) 
-    } else if (holder === "*") {
+    } else if (holder === "x") {
         setOperator(multiply)
     } else if (holder === "+") {
         setOperator(add) 
