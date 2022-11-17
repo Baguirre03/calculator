@@ -120,7 +120,7 @@ functions.forEach((button) => {
             (valueTwo != "")) {
                 valueOne = operate(operatorCalc, valueOne, valueTwo);
                 output.textContent = valueOne
-                updateTop(`${valueOne}`);
+                updateTop(`${valueOne} ${button.textContent}`);
                 setOperator(button)
                 valueTwo = ""
             } else {
