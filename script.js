@@ -81,14 +81,13 @@ function getFirstValue() {
     number.forEach((button) => {
         button.addEventListener('click', () => {
             if (valueTwo.includes(".") && button.textContent === ".") {
-                console.log("You cant do that lolBLAH")
+                console.log("You cant do that lol")
                 return;
             } else if (operatorCalc === "add" || 
             operatorCalc === "subtract" || 
             operatorCalc === "multiply" || 
             operatorCalc === "divide") { 
                 setSecondValue(button.textContent);
-                console.log(valueTwo)
                 calculate();
             }  else if (!isNaN(button.textContent) && String(valueOne) === placeholder.textContent && valueOne != 0) {
                 clearAll();
