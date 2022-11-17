@@ -200,11 +200,6 @@ positiveNeg.addEventListener('click', () => {
 })
 
 function checkPositiveNegative() {
-    console.log(valueOne)
-    console.log(valueTwo)
-    console.log(parseInt(valueOne))
-    console.log(parseInt(output.textContent))
-    console.log(Math.sign(parseInt(valueOne)))
     if (parseInt(output.textContent) == parseInt(valueOne) && Math.sign(valueOne) === 1) {
         valueOne = (valueOne * 0) - valueOne
         valueOne = valueOne.toFixed(2)
