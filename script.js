@@ -7,13 +7,13 @@ const clear = document.querySelector('#clear')
 const back = document.querySelector('#back')
 const equals = document.querySelector('#equals')
 const period = document.querySelector('#period')
-const plusMinus = document.querySelector('#plusMinus')
+const positiveNeg = document.querySelector('#plusMinus')
 const number = document.querySelectorAll('.number')
 const functions = document.querySelectorAll('.function')
 
 //basic functions 
 const addition = function(a, b) {
-    return parseInt(a) + parseInt(b)
+    return +a + +b
 }
 
 const subtraction = function(a, b) {
@@ -103,8 +103,9 @@ function getFirstValue() {
 //-+÷x
 functions.forEach((button) => {
     button.addEventListener('click', () => {
-//Running operate if valueOne and Two filled, but dont click equals instead another function
-        if ((operatorCalc === "add" || 
+        if (valueOne == "" && button.textContent === "-") {
+            setFirstValue(button.textContent)
+        } else if ((operatorCalc === "add" || 
             operatorCalc === "subtract" || 
             operatorCalc === "multiply" || 
             operatorCalc === "divide") &&
@@ -112,7 +113,7 @@ functions.forEach((button) => {
             button.textContent === "-" || 
             button.textContent === "x" || 
             button.textContent === "÷") &&
-            (!isNaN(valueTwo))) {
+            (valueTwo != "")) {
                 valueOne = operate(operatorCalc, valueOne, valueTwo);
                 output.textContent = valueOne
                 updateTop(`${valueOne}`);
@@ -176,11 +177,8 @@ function checkEmptyDiv() {
 
 function round(value) {
     if (output.textContent = value && !Number.isInteger(value)) {
-        console.log(value)
         value = value.toFixed(2)
-        console.log(value)
         output.textContent = value
-        console.log(value)
     } else {
         output.textContent = value
         return;
@@ -191,8 +189,30 @@ function round(value) {
 getFirstValue();
 
 
+//Positive and Negative switches
 
+positiveNeg.addEventListener('click', () => {
+    if (output.textContent = valueOne) {
+        checkPositiveNegative(valueOne);
+    } else if (output.textContent = valueTwo) {
+        checkPositiveNegative(valueTwo);
+    }
+})
 
+function checkPositiveNegative(value) {
+    if (Math.sign(value) == 1) {
+        parseInt(value)
+        value = (value * 0) - value
+        output.textContent = value
+        console.log(value)
+        console.log("post to neg")
+    } else {
+        value = Math.abs(value)
+        output.textContent = value
+        console.log(value)
+        console.log("neg to pos")
+    }
+}
 
 
 
