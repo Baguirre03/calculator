@@ -200,20 +200,25 @@ positiveNeg.addEventListener('click', () => {
 })
 
 function checkPositiveNegative() {
-    if (parseInt(output.textContent) == valueOne && Math.sign(valueOne) === 1) {
-        parseInt(valueOne)
+    console.log(valueOne)
+    console.log(valueTwo)
+    console.log(parseInt(valueOne))
+    console.log(parseInt(output.textContent))
+    console.log(Math.sign(parseInt(valueOne)))
+    if (parseInt(output.textContent) == parseInt(valueOne) && Math.sign(valueOne) === 1) {
         valueOne = (valueOne * 0) - valueOne
+        valueOne = valueOne.toFixed(2)
         output.textContent = valueOne
         placeholder.textContent = valueOne
-    } else if (parseInt(output.textContent) == valueOne && Math.sign(valueOne) === -1) {
+    } else if (parseInt(output.textContent) == parseInt(valueOne) && Math.sign(valueOne) === -1) {
         valueOne = Math.abs(valueOne)
+        valueOne = valueOne.toFixed(2)
         output.textContent = valueOne
         placeholder.textContent = valueOne
-    } else if (output.textContent == valueTwo && Math.sign(valueTwo) === 1) {
-        parseInt(valueTwo)
+    } else if (parseInt(output.textContent) == parseInt(valueTwo) && Math.sign(valueTwo) === 1) {
         valueTwo = (valueTwo * 0) - valueTwo
         output.textContent = valueTwo
-    } else if (parseInt(output.textContent) == valueTwo && Math.sign(valueTwo) === -1) {
+    } else if (parseInt(output.textContent) == parseInt(valueTwo) && Math.sign(valueTwo) === -1) {
         valueTwo = Math.abs(valueTwo)
         output.textContent = valueTwo
     } else {
