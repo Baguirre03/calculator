@@ -105,7 +105,11 @@ functions.forEach((button) => {
     button.addEventListener('click', () => {
         if (valueOne == "" && button.textContent === "-") {
             setFirstValue(button.textContent)
-        } else if ((operatorCalc === "add" || 
+        } else if (valueOne === "") {
+            return;
+        }
+//Running operate if valueOne and Two filled, but dont click equals instead another function        
+        else if ((operatorCalc === "add" || 
             operatorCalc === "subtract" || 
             operatorCalc === "multiply" || 
             operatorCalc === "divide") &&
