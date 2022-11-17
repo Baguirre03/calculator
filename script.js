@@ -85,6 +85,10 @@ function getFirstValue() {
             operatorCalc === "multiply" || 
             operatorCalc === "divide") { 
                 setSecondValue(button.textContent);
+                console.log(valueOne)
+                console.log(operatorCalc)
+                console.log(valueTwo)
+                calculate();
             } else if (!isNaN(button.textContent) || button.textContent === "."){
                 setFirstValue(button.textContent)
             } 
@@ -95,24 +99,44 @@ function getFirstValue() {
 //-+÷x
 functions.forEach((button) => {
     button.addEventListener('click', () => {
-        setOperator(button)
-        updateTop(`${valueOne} ${button.textContent}`);
-        return;
+//Running operate if valueOne and Two filled, but dont click equals -> click another function
+        if ((operatorCalc === "add" || 
+            operatorCalc === "subtract" || 
+            operatorCalc === "multiply" || 
+            operatorCalc === "divide") &&
+            (button.textContent === "+" || 
+            button.textContent === "-" || 
+            button.textContent === "x" || 
+            button.textContent === "÷") &&
+            (!isNaN(valueTwo))) {
+                valueOne = operate(operatorCalc, valueOne, valueTwo);
+                output.textContent = valueOne
+                updateTop(`${valueOne}`);
+                setOperator(button)
+                valueTwo = ""
+            } else {
+                setOperator(button)
+                updateTop(`${valueOne} ${button.textContent}`);
+                console.log("else")
+                return;
+        }
     })
 })
 
 //equals bttn
-equals.addEventListener('click', () => {
-    if (valueTwo === "") {
-        return;
-    } else {
-    valueOne = operate(operatorCalc, valueOne, valueTwo)
-    output.textContent = valueOne
-    updateTop(`${valueOne}`);
-    operatorCalc = ""
-    valueTwo = ""
-    }
-})
+function calculate(){
+    equals.addEventListener('click', () => {
+        if (valueTwo === "") {
+            return;
+        } else {
+        valueOne = operate(operatorCalc, valueOne, valueTwo)
+        output.textContent = valueOne
+        updateTop(`${valueOne}`);
+        operatorCalc = ""
+        valueTwo = ""
+        }
+    })
+}
 
 //backspace button
 back.addEventListener('click', () => {
@@ -135,12 +159,12 @@ back.addEventListener('click', () => {
     }
 })
 
-//clear button
+//clear all button
 clear.addEventListener('click', () => {
     clearAll();
 })
 
-//if backspace all the way output shows empty
+//if backspace all the way output returns empty rather than nothing
 function checkEmptyDiv() {
     if (output.textContent === "") {
         output.textContent = "0"
