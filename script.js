@@ -108,7 +108,7 @@ functions.forEach((button) => {
         } else if (valueOne === "") {
             return;
         }
-//Running operate if valueOne and Two filled, but dont click equals instead another function        
+//Running operate if valueOne and Two filled, but dont click equals instead click another function        
         else if ((operatorCalc === "add" || 
             operatorCalc === "subtract" || 
             operatorCalc === "multiply" || 
@@ -119,7 +119,7 @@ functions.forEach((button) => {
             button.textContent === "÷") &&
             (valueTwo != "")) {
                 valueOne = operate(operatorCalc, valueOne, valueTwo);
-                output.textContent = valueOne
+
                 updateTop(`${valueOne} ${button.textContent}`);
                 setOperator(button)
                 valueTwo = ""
@@ -189,10 +189,6 @@ function round(value) {
     }
 }
 
-//Run code
-getFirstValue();
-
-
 //Positive and Negative switches
 
 positiveNeg.addEventListener('click', () => {
@@ -221,3 +217,115 @@ function checkPositiveNegative() {
     }
 }
 
+//Run code
+getFirstValue();
+
+
+
+//Run Code with Keys LOL sorry this is a complete mess here -- copied code form aboce
+
+addEventListener('keydown', (e) => {
+    if(e.key === "Backspace") {
+                        if (operatorCalc === "add" || 
+                        operatorCalc === "subtract" || 
+                        operatorCalc === "multiply" || 
+                        operatorCalc === "divide") {
+                            valueTwo = valueTwo.slice(0, valueTwo.length - 1);
+                            output.textContent = valueTwo
+                            checkEmptyDiv();
+                        } else if (String(valueOne) === placeholder.textContent) { //(restart if click = and enter dif number) 
+                            valueOne = String(valueOne).slice(0, String(valueOne).length - 1);
+                            output.textContent = valueOne
+                            placeholder.textContent = valueOne
+                            checkEmptyDiv();
+                        } else {
+                            valueOne = valueOne.slice(0, valueOne.length - 1);
+                            output.textContent = valueOne
+                            checkEmptyDiv();
+                        }
+    } else if (e.key === "+" ||
+                e.key === "-" ||
+                e.key === "/" ||
+                e.key === "x") {
+                        if (valueOne == "" && e.key === "-") {
+                            setFirstValue(e.key)
+                        } else if (valueOne === "") {
+                            return;
+                        } else if ((operatorCalc === "add" || 
+                            operatorCalc === "subtract" || 
+                            operatorCalc === "multiply" || 
+                            operatorCalc === "divide") &&
+                            (e.key === "+" || 
+                            e.key === "-" || 
+                            e.key === "*" || 
+                            e.key === "/") &&
+                            (valueTwo != "")) {
+                                valueOne = operate(operatorCalc, valueOne, valueTwo);
+                                output.textContent = "blah"
+                                updateTop(`${valueOne} ${e.key}`);
+                                setOperatorKeys(e.key)
+                                valueTwo = ""
+                        } else {
+                            console.log(operatorCalc)
+                            setOperatorKeys(e.key)
+                            console.log(operatorCalc)
+                            updateTop(`${valueOne} ${e.key}`);
+                                return;
+                        }
+    } else if (e.key === "1" ||
+                e.key === "2" ||
+                e.key === "3" ||
+                e.key === "4" ||
+                e.key === "5" ||
+                e.key === "6" ||
+                e.key === "7" ||
+                e.key === "8" ||
+                e.key === "9" ||
+                e.key === "0")  {
+                        if (operatorCalc === "add" || 
+                            operatorCalc === "subtract" || 
+                            operatorCalc === "multiply" || 
+                            operatorCalc === "divide") { 
+                                setSecondValue(e.key);
+                                calculate();
+                            }  else if (!isNaN(e.key) && String(valueOne) === placeholder.textContent && valueOne != 0) {
+                                clearAll();
+                                placeholder.textContent = ""
+                                setFirstValue(e.key);
+                            } else if (valueOne.includes(".") && e.key === "."){
+                                console.log("You cant do that lol")
+                                return;
+                            } else if (!isNaN(e.key) || e.key === "."){
+                                setFirstValue(e.key)
+                            }
+    } else if (e.key === "Enter") {
+                        if (valueTwo === "") {
+                            return;
+                        } else {
+                        valueOne = operate(operatorCalc, valueOne, valueTwo)
+                        output.textContent = valueOne
+                        round(valueOne);
+                        updateTop(`${valueOne}`);
+                        operatorCalc = ""
+                        valueTwo = ""
+                        }
+    }
+})
+
+//setOperator for keys
+function setOperatorKeys(holder) {
+    if (holder === "/") {
+        setOperator(divide) 
+    } else if (holder === "*") {
+        setOperator(multiply)
+    } else if (holder === "+") {
+        setOperator(add) 
+    } else if (holder === "-") {
+        setOperator(subtract)
+    }
+}
+
+const multiply = document.querySelector('#multiply')
+const divide = document.querySelector('#divide')
+const add = document.querySelector('#add')
+const subtract = document.querySelector('#subtract')
