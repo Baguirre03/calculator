@@ -226,8 +226,6 @@ function checkPositiveNegative() {
 //Run code
 getFirstValue();
 
-
-
 //Run Code with Keys LOL sorry this is a complete mess here -- copied code form aboce
 
 addEventListener('keydown', (e) => {
