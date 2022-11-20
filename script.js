@@ -83,6 +83,8 @@ function getFirstValue() {
             if (valueTwo.includes(".") && button.textContent === ".") {
                 console.log("You cant do that lol")
                 return;
+            } else if (valueOne === "0" || valueTwo === "0" || valueTwo === "" && button.textContent === "0") {
+                return;
             } else if (operatorCalc === "add" || 
             operatorCalc === "subtract" || 
             operatorCalc === "multiply" || 
@@ -287,6 +289,8 @@ addEventListener('keydown', (e) => {
                 e.key === ".")  {
                             if (valueTwo.includes(".") && e.key === ".") {
                                 console.log("You cant do that loll")
+                                return;
+                            } else if (valueOne === "0" || valueTwo === "0" || valueTwo === "" && e.key === "0") {
                                 return;
                             } else if (operatorCalc === "add" || 
                                 operatorCalc === "subtract" || 
