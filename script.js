@@ -83,7 +83,7 @@ function getFirstValue() {
             if (valueTwo.includes(".") && button.textContent === ".") {
                 console.log("You cant do that lol")
                 return;
-            } else if (valueOne === "0" || valueTwo === "0" || valueTwo === "" && button.textContent === "0") {
+            } else if (valueOne === "0" || valueTwo === "0" && button.textContent === "0") {
                 return;
             } else if (operatorCalc === "add" || 
             operatorCalc === "subtract" || 
